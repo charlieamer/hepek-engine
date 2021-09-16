@@ -1,3 +1,4 @@
+#include <entt/entt.hpp>
 #define SDL_VIDEO_DRIVER_X11
 #include <SDL.h>
 #include <SDL_syswm.h>
@@ -10,6 +11,12 @@
 // render imgui in sdl
 #include <backends/imgui_impl_sdl.h>
 #include <backends/imgui_impl_opengl3.h>
+
+struct CounterContainer {
+  int counter;
+};
+entt::registry registry;
+entt::entity entity;
 
 void bgfxInit()
 {
@@ -33,13 +40,26 @@ void imguiInit()
   ImGui::StyleColorsDark();
 }
 
-int counter = 0;
+void enttInit()
+{
+  entity = registry.create();
+  registry.emplace<CounterContainer>(entity, 0);
+}
+
+void update()
+{
+  registry.view<CounterContainer>().each([](const auto entity, CounterContainer& container) {
+    container.counter++;
+  });
+}
+
 void render()
 {
   bgfx::setViewRect(0, 0, 0, uint16_t(800), uint16_t(600));
   bgfx::touch(0);
   bgfx::dbgTextClear();
-  bgfx::dbgTextPrintf(0, 1, 0x4f, "Counter from BGFX: %d", counter++);
+
+  bgfx::dbgTextPrintf(0, 1, 0x4f, "Text from BGFX. Counter from entt: %d", registry.get<CounterContainer>(entity).counter);
 
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplSDL2_NewFrame();
@@ -103,8 +123,11 @@ int main(void)
 
   bool exit = false;
   SDL_Event event;
+  enttInit();
+
   while (!exit)
   {
+    update();
     while (SDL_PollEvent(&event))
     {
       switch (event.type)
