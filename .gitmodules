@@ -1,0 +1,18 @@
+[submodule "external/entt"]
+	path = external/entt
+	url = https://github.com/skypjack/entt
+[submodule "external/imgui"]
+	path = external/imgui
+	url = https://github.com/ocornut/imgui
+[submodule "external/SDL"]
+	path = external/SDL
+	url = https://github.com/libsdl-org/SDL
+[submodule "external/bgfx"]
+	path = external/bgfx
+	url = https://github.com/bkaradzic/bgfx
+[submodule "external/bx"]
+	path = external/bx
+	url = https://github.com/bkaradzic/bx
+[submodule "external/bimg"]
+	path = external/bimg
+	url = https://github.com/bkaradzic/bimg
