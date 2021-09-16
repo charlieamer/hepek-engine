@@ -5,8 +5,6 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 #include <bx/bx.h>
-#include <bx/mutex.h>
-#include <bx/thread.h>
 #include <imgui.h>
 // render imgui in sdl
 #include <backends/imgui_impl_sdl.h>
